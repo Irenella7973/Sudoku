@@ -1,3 +1,6 @@
+const {sudokuArr} = require ('./sudokuArr');
+const {sudokuObj} = require ('./sudokuObj')
+
 // Takes a board as a string in the format
 // you see in the puzzle file. Returns
 // something representing a board after
