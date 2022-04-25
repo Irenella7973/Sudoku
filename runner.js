@@ -1,8 +1,10 @@
 // Use filesystem.
 const fs = require('fs');
+const { guessTime } = require('./guessTime');
 // Use functions from sudoku.js file.
 const sudoku = require('./sudoku');
-
+const { sudokuArr } = require('./sudokuArr');
+const { sudokuObj } = require('./sudokuObj');
 // The sudoku puzzles that your program will solve can be found
 // in the sudoku-puzzles.txt file.
 //
@@ -10,26 +12,33 @@ const sudoku = require('./sudoku');
 // so you should remove them.
 
 // Gets one puzzle from the text file.
-function sudokuParse(content, puzzleNumber = 0) {
-  let puzzle = content.split('\n')[puzzleNumber];
-  console.log(puzzle);
+function sudokuParse(content, puzzleNumber = 14) {
+  const puzzle = content.split('\n')[puzzleNumber];
+  const puzzleArr = sudokuArr(puzzle);
   console.log('parser');
-  return puzzle;
+  console.table(puzzleArr);
+  return puzzleArr;
 }
-
 function readAndSolve(err, data) {
   if (err) {
     throw err;
   }
-  let puzzle = sudokuParse(data);
-
-  let solvedPuzzle = sudoku.solve(puzzle);
+  const puzzle = sudokuParse(data);
+  const puzzle1 = sudokuObj(puzzle);
+  const solvedPuzzle = sudoku.solve(puzzle1);
   if (sudoku.isSolved(solvedPuzzle)) {
-    console.log("The board was solved!");
-    console.log(sudoku.prettyBoard(solvedPuzzle));
-  }
-  else {
-    console.log("The board wasn't solved :(");
+    console.log('The board was solved!');
+    console.table(sudoku.prettyBoard(solvedPuzzle));
+  } else {
+    // const puzzle2 = sudokuParse(data);
+    const puzzle3 = sudokuObj(puzzle);
+    const solvedPuzzle1 = guessTime(puzzle3);
+    if (sudoku.isSolved(solvedPuzzle1)) {
+      console.log('The board was solved!');
+      console.table(sudoku.prettyBoard(solvedPuzzle1));
+    } else {
+      console.log("The board wasn't solved :(");
+    }
   }
 }
 
@@ -37,6 +46,5 @@ function readAndSolve(err, data) {
 fs.readFile(
   './sudoku-puzzles.txt',
   'utf-8',
-  readAndSolve
+  readAndSolve,
 );
-
