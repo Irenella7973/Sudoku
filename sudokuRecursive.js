@@ -1,12 +1,12 @@
 const { sudokuObj } = require('./sudokuObj.js');
 const { checkElements } = require('./checkElements.js');
 
-// const sudokuText = '----------2-65-------18--4--9----6-4-3---57-------------------73------9----------';
+// const sudokuText = '1-58-2----9--764-52--4--819-19--73-6762-83-9-----61-5---76---3-43--2-5-16--3-89--';
 // const sudoku = sudokuText.replace(/(.{9})/g, '$1 ').trimEnd().split(' ').map((c) => c.split(''));
 // const sudokuob = sudokuObj(sudoku);
 
 function sudokuRecursive(board) {
-  if (checkBoard(board) === false) { return 'нет решения'; }
+  if (checkBoard(board) === false) { return 'The board wasn\'t solved :('; }
   if (board.map((c) => c.value).join('') === false) { return board; }
   for (let j = 0; j <= board.length - 1; j++) {
     if (board[j].value === '-') {
