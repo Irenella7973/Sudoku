@@ -1,6 +1,7 @@
-const {sudokuArr} = require ('./sudokuArr');
-const {sudokuObj} = require ('./sudokuObj');
-const {checkNumbers} = require ('./checkNumbers')
+const { sudokuArr } = require('./sudokuArr');
+const { sudokuObj } = require('./sudokuObj');
+const { checkNumbers } = require('./checkNumbers');
+const { sudokuRecursive } = require('./sudokuRecursive');
 
 // Takes a board as a string in the format
 // you see in the puzzle file. Returns
@@ -8,7 +9,8 @@ const {checkNumbers} = require ('./checkNumbers')
 // your solver has tried to solve it.
 // How you represent your board is up to you!
 function solve(boardString) {
-  console.log('first changes');
+  const result = sudokuRecursive(boardString);
+  return result;
 }
 
 // Returns a boolean indicating whether
@@ -16,7 +18,7 @@ function solve(boardString) {
 // The input board will be in whatever
 // form `solve` returns.
 function isSolved(board) {
-
+  return !board.map((c) => c.value).join('').includes('-');
 }
 
 // Takes in a board in some form and
@@ -25,7 +27,9 @@ function isSolved(board) {
 // The input board will be in whatever
 // form `solve` returns.
 function prettyBoard(board) {
-
+  let result = board.map((c) => c.value).join('');
+  result = sudokuArr(result);
+  return result;
 }
 
 // Exports all the functions to use them in another file.
